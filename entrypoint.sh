@@ -41,6 +41,8 @@ workflow_url=$(curl -s ${GITHUB_API}/repos/${GITHUB_REPOSITORY}/actions/runs/${G
 workflow_id=${workflow_url##/*/}
 echo "workflow id: "$workflow_id
 
+curl -s ${GITHUB_API}/repos/${GITHUB_REPOSITORY}/actions/workflows/${workflow_id}/runs -H "${auth_header}"
+
 # get the run ids
 run_ids=$(curl -s ${GITHUB_API}/repos/${GITHUB_REPOSITORY}/actions/workflows/${workflow_id}/runs -H "${auth_header}" | jq -r "${jq_run_ids}" | sort -n | head -n-1)
 
